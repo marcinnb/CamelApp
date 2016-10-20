@@ -14,15 +14,12 @@ import java.util.List;
 
 import static com.app.camel.model.Tables.USERS;
 
-/**
- * Created by britenet on 2016-10-20.
- */
 public class JooqClass {
 
-    String user = null;
-    String password = null;
-    String url = null;
-    String driver = null;
+    private String user = null;
+    private String password = null;
+    private String url = null;
+    private String driver = null;
 
     public JooqClass() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
@@ -45,14 +42,12 @@ public class JooqClass {
             Result<Record> result = dslContext.select().from(USERS).fetch();
 
             for (Record r : result) {
-                User user = new User(r.getValue(USERS.ID), r.getValue(USERS.FIRST_NAME),r.getValue(USERS.LAST_NAME), r.getValue(USERS.EMAIL), r.getValue(USERS.IS_ACTIVE));
+                User user = new User(r.getValue(USERS.ID), r.getValue(USERS.FIRST_NAME), r.getValue(USERS.LAST_NAME), r.getValue(USERS.EMAIL), r.getValue(USERS.IS_ACTIVE));
 
                 users.add(user);
-
             }
 
-            String json = new Gson().toJson(users);
-            return json;
+            return new Gson().toJson(users);
 
         } catch (Exception e) {
             e.printStackTrace();
