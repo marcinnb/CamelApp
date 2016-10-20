@@ -1,5 +1,7 @@
 package com.app.camel;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -16,14 +18,19 @@ public class Application {
         String driver = Config.DRIVER;
 
         Class.forName(driver).newInstance();
-
+        DSLContext dslContext;
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
-
-            DSLContext dslContext = DSL.using(connection, SQLDialect.MYSQL);
-
+            dslContext = DSL.using(connection, SQLDialect.MYSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        CamelContext context= new DefaultCamelContext();
+        RestfulRoute restfulRoute= new RestfulRoute();
+        context.addRoutes(restfulRoute);
+        context.start();
+        Thread.sleep(50000);
+        context.stop();
 
 
     }
