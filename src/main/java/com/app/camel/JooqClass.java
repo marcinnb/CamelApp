@@ -56,5 +56,27 @@ public class JooqClass {
         return null;
     }
 
+    public String getUserById(Integer id) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+        try (Connection connection = DriverManager.getConnection(url, user, password)) {
+
+            DSLContext dslContext = DSL.using(connection, SQLDialect.MYSQL);
+
+            Result<Record> result = dslContext.select().from(USERS).where(USERS.ID.equal(id)).fetch();
+
+            for (Record r : result) {
+
+                User user = new User(r.getValue(USERS.ID), r.getValue(USERS.FIRST_NAME), r.getValue(USERS.LAST_NAME), r.getValue(USERS.EMAIL), r.getValue(USERS.IS_ACTIVE));
+
+                return new Gson().toJson(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 }
