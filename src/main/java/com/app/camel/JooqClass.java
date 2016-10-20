@@ -1,5 +1,6 @@
 package com.app.camel;
 
+import com.google.gson.Gson;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -8,6 +9,8 @@ import org.jooq.impl.DSL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.app.camel.model.Tables.USERS;
 
@@ -16,17 +19,24 @@ import static com.app.camel.model.Tables.USERS;
  */
 public class JooqClass {
 
+    String user = null;
+    String password = null;
+    String url = null;
+    String driver = null;
 
+    public JooqClass() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
-
-    public String select() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-
-        String user = Config.USER;
-        String password = Config.PASSWORD;
-        String url = Config.URL;
-        String driver = Config.DRIVER;
+        this.user = Config.USER;
+        this.password = Config.PASSWORD;
+        this.url = Config.URL;
+        this.driver = Config.DRIVER;
 
         Class.forName(driver).newInstance();
+    }
+
+    public String getAllUsers() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+
+        List<User> users = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
 
@@ -35,27 +45,21 @@ public class JooqClass {
             Result<Record> result = dslContext.select().from(USERS).fetch();
 
             for (Record r : result) {
-                Integer id = r.getValue(USERS.ID);
-                String firstName = r.getValue(USERS.FIRST_NAME);
-                String lastName = r.getValue(USERS.LAST_NAME);
+                User user = new User(r.getValue(USERS.ID), r.getValue(USERS.FIRST_NAME),r.getValue(USERS.LAST_NAME), r.getValue(USERS.EMAIL), r.getValue(USERS.IS_ACTIVE));
 
-                System.out.println("ID: " + id + " first name: " + firstName + " last name: " + lastName);
+                users.add(user);
+
             }
-            String rest= result.toString();
-            return rest;
+
+            String json = new Gson().toJson(users);
+            return json;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-
-
         return null;
-
     }
-
-
 
 
 }
