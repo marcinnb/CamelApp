@@ -1,36 +1,20 @@
 package com.app.camel;
 
-import com.app.camel.Config;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-/**
- * Created by britenet on 2016-10-20.
- */
 public class RestfulRoute extends RouteBuilder {
+
     @Override
     public void configure() throws Exception {
-
-
-
-
 
         from("restlet:http://localhost:9091/user?restletMethod=get")
                 .to("direct:select");
 
-
-
         from("restlet:http://localhost:9091/user/{name}?restletMethod=get")
-                .transform().simple("Hello ${header.name}");
+                .transform().simple("Hello ${header.name}")
+                .to("direct:getUserWithName");
 
         from("restlet:http://localhost:9091/user?restletMethod=put")
                 .to("direct:select")
@@ -40,15 +24,12 @@ public class RestfulRoute extends RouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        JooqClass jooqClass= new JooqClass();
+                        JooqClass jooqClass = new JooqClass();
 
-                        String body= jooqClass.select();
+                        String body = jooqClass.getAllUsers();
                         exchange.getIn().setBody(body);
-
-
                     }
                 })
-        .transform().body();
-
+                .transform().body();
     }
 }
