@@ -5,31 +5,33 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class RestfulRoute extends RouteBuilder {
-
     @Override
     public void configure() throws Exception {
+        final JooqClass jooqClass = new JooqClass();
+        from("restlet:http://localhost:9091/user?restletMethod=get").to("direct:select");
+        from("restlet:http://localhost:9091/user/{id}?restletMethod=get").to("direct:idSelect");
+        from("restlet:http://localhost:9091/user?restletMethod=put").to("direct:select").transform().simple("put ");
 
-        from("restlet:http://localhost:9091/user?restletMethod=get")
-                .to("direct:select");
+        from("direct:select").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                String body = jooqClass.getAllUsers();
+                exchange.getIn().setBody(body);
+            }
+        }).transform().body();
 
-        from("restlet:http://localhost:9091/user/{name}?restletMethod=get")
-                .transform().simple("Hello ${header.name}")
-                .to("direct:getUserWithName");
+        from("direct:idSelect").process(new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                String uri = exchange.getIn().getHeader(Exchange.HTTP_URI, String.class);
+                String[] test = uri.split("/");
+                String id = test[test.length - 1];
 
-        from("restlet:http://localhost:9091/user?restletMethod=put")
-                .to("direct:select")
-                .transform().simple("put ");
-
-        from("direct:select")
-                .process(new Processor() {
-                    @Override
-                    public void process(Exchange exchange) throws Exception {
-                        JooqClass jooqClass = new JooqClass();
-
-                        String body = jooqClass.getAllUsers();
-                        exchange.getIn().setBody(body);
-                    }
-                })
-                .transform().body();
+                int idint=Integer.parseInt(id);
+                System.out.println(idint);
+                String body = jooqClass.getUserById(idint);
+                exchange.getIn().setBody(body);
+            }
+        }).transform().body();
     }
 }
