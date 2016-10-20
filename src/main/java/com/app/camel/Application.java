@@ -12,7 +12,7 @@ import java.sql.DriverManager;
 public class Application {
     public static void main(String[] args) throws Exception {
 
-        String user = Config.USER;
+       /* String user = Config.USER;
         String password = Config.PASSWORD;
         String url = Config.URL;
         String driver = Config.DRIVER;
@@ -23,7 +23,7 @@ public class Application {
             dslContext = DSL.using(connection, SQLDialect.MYSQL);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         CamelContext context= new DefaultCamelContext();
         RestfulRoute restfulRoute= new RestfulRoute();

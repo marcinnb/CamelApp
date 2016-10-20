@@ -40,10 +40,15 @@ public class RestfulRoute extends RouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
+                        JooqClass jooqClass= new JooqClass();
 
+                        String body= jooqClass.select();
+                        exchange.getIn().setBody(body);
 
 
                     }
-                });
+                })
+        .transform().body();
+
     }
 }
