@@ -6,11 +6,8 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class RestfulRoute extends RouteBuilder {
 
-
-
     @Override
     public void configure() throws Exception {
-
         final UserRepository userRepository = new UserRepositoryImpl();
         from("restlet:http://localhost:9091/user?restletMethod=get").to("direct:select");
         from("restlet:http://localhost:9091/user/{id}?restletMethod=get").to("direct:idSelect");
