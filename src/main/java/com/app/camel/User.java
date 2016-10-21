@@ -6,14 +6,14 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private Byte isActive;
+    private Integer isActive;
 
-    public User(long id, String firstName, String lastName, String email, Byte isAvtive) {
+    public User(long id, String firstName, String lastName, String email, Integer isActive) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.isActive = isAvtive;
+        this.isActive = isActive;
     }
 
     public long getId() {
@@ -44,12 +44,13 @@ public class User {
         this.email = email;
     }
 
-    public Byte isAvtive() {
+    public Integer isActive() {
         return isActive;
     }
 
-    public void setAvtive(Byte avtive) {
-        this.isActive = avtive;
+
+    public void setIsActive(Integer isActive) {
+        this.isActive = isActive;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", isAvtive=" + isActive +
+                ", isActive=" + isActive +
                 '}';
     }
 }
