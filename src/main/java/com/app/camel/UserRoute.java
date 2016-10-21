@@ -13,9 +13,9 @@ public class UserRoute extends RouteBuilder {
         from("restlet:http://localhost:9091/user/{id}?restletMethod=get").to("direct:idSelect");
         from("restlet:http://localhost:9091/user?restletMethod=post").to("direct:post");
         from("restlet:http://localhost:9091/user?restletMethod=put").to("direct:put");
-        from("restlet:http://localhost:9091/user?restletMethod=put/{id}").to("direct:putId");
+        from("restlet:http://localhost:9091/user/{id}?restletMethod=put}").to("direct:putId");
         from("restlet:http://localhost:9091/user?restletMethod=delete").to("direct:delete");
-        from("restlet:http://localhost:9091/user?restletMethod=delete/{id}").to("direct:deleteId");
+        from("restlet:http://localhost:9091/user/{id}?restletMethod=delete").to("direct:deleteId");
 
         from("direct:select").process(new Processor() {
             @Override
@@ -28,9 +28,8 @@ public class UserRoute extends RouteBuilder {
         from("direct:idSelect").process(new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                String uri = exchange.getIn().getHeader(Exchange.HTTP_URI, String.class);
-                String[] test = uri.split("/");
-                String id = test[test.length - 1];
+
+                String id =exchange.getIn().getHeader("id", String.class);
                 String body = jooqClass.getUserById(Integer.parseInt(id));
                 exchange.getIn().setBody(body);
             }
