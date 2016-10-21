@@ -7,7 +7,7 @@ import org.apache.camel.builder.RouteBuilder;
 public class UserRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        final JooqClass jooqClass = new JooqClass();
+        final UserRepository userRepository = new UserRepositoryImpl();
 
         from("restlet:http://localhost:9091/user?restletMethod=get").to("direct:select");
         from("restlet:http://localhost:9091/user/{id}?restletMethod=get").to("direct:idSelect");
@@ -20,7 +20,7 @@ public class UserRoute extends RouteBuilder {
         from("direct:select").process(new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                String body = jooqClass.getAllUsers();
+                String body = userRepository.getAllUsers();
                 exchange.getIn().setBody(body);
             }
         }).transform().body();
@@ -30,7 +30,7 @@ public class UserRoute extends RouteBuilder {
             public void process(Exchange exchange) throws Exception {
 
                 String id =exchange.getIn().getHeader("id", String.class);
-                String body = jooqClass.getUserById(Integer.parseInt(id));
+                String body = userRepository.getUserById(Integer.parseInt(id));
                 exchange.getIn().setBody(body);
             }
         }).transform().body();
