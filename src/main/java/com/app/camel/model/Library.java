@@ -4,9 +4,9 @@
 package com.app.camel.model;
 
 
-import com.app.camel.model.tables.Projects;
-import com.app.camel.model.tables.Users;
-import com.app.camel.model.tables.UsersHasProjects;
+import com.app.camel.model.tables.Project;
+import com.app.camel.model.tables.User;
+import com.app.camel.model.tables.UserHasProject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Library extends SchemaImpl {
 
-    private static final long serialVersionUID = -1553091857;
+    private static final long serialVersionUID = -473692979;
 
     /**
      * The reference instance of <code>library</code>
@@ -40,19 +40,19 @@ public class Library extends SchemaImpl {
     public static final Library LIBRARY = new Library();
 
     /**
-     * The table <code>library.projects</code>.
+     * The table <code>library.project</code>.
      */
-    public final Projects PROJECTS = com.app.camel.model.tables.Projects.PROJECTS;
+    public final Project PROJECT = com.app.camel.model.tables.Project.PROJECT;
 
     /**
-     * The table <code>library.users</code>.
+     * The table <code>library.user</code>.
      */
-    public final Users USERS = com.app.camel.model.tables.Users.USERS;
+    public final User USER = com.app.camel.model.tables.User.USER;
 
     /**
-     * The table <code>library.users_has_projects</code>.
+     * The table <code>library.user_has_project</code>.
      */
-    public final UsersHasProjects USERS_HAS_PROJECTS = com.app.camel.model.tables.UsersHasProjects.USERS_HAS_PROJECTS;
+    public final UserHasProject USER_HAS_PROJECT = com.app.camel.model.tables.UserHasProject.USER_HAS_PROJECT;
 
     /**
      * No further instances allowed
@@ -79,8 +79,8 @@ public class Library extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Projects.PROJECTS,
-            Users.USERS,
-            UsersHasProjects.USERS_HAS_PROJECTS);
+            Project.PROJECT,
+            User.USER,
+            UserHasProject.USER_HAS_PROJECT);
     }
 }

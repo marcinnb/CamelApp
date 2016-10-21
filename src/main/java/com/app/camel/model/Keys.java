@@ -4,12 +4,12 @@
 package com.app.camel.model;
 
 
-import com.app.camel.model.tables.Projects;
-import com.app.camel.model.tables.Users;
-import com.app.camel.model.tables.UsersHasProjects;
-import com.app.camel.model.tables.records.ProjectsRecord;
-import com.app.camel.model.tables.records.UsersHasProjectsRecord;
-import com.app.camel.model.tables.records.UsersRecord;
+import com.app.camel.model.tables.Project;
+import com.app.camel.model.tables.User;
+import com.app.camel.model.tables.UserHasProject;
+import com.app.camel.model.tables.records.ProjectRecord;
+import com.app.camel.model.tables.records.UserHasProjectRecord;
+import com.app.camel.model.tables.records.UserRecord;
 
 import javax.annotation.Generated;
 
@@ -37,41 +37,41 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
-    public static final Identity<ProjectsRecord, Integer> IDENTITY_PROJECTS = Identities0.IDENTITY_PROJECTS;
-    public static final Identity<UsersRecord, Integer> IDENTITY_USERS = Identities0.IDENTITY_USERS;
+    public static final Identity<ProjectRecord, Integer> IDENTITY_PROJECT = Identities0.IDENTITY_PROJECT;
+    public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<ProjectsRecord> KEY_PROJECTS_PRIMARY = UniqueKeys0.KEY_PROJECTS_PRIMARY;
-    public static final UniqueKey<UsersRecord> KEY_USERS_PRIMARY = UniqueKeys0.KEY_USERS_PRIMARY;
-    public static final UniqueKey<UsersHasProjectsRecord> KEY_USERS_HAS_PROJECTS_PRIMARY = UniqueKeys0.KEY_USERS_HAS_PROJECTS_PRIMARY;
+    public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = UniqueKeys0.KEY_PROJECT_PRIMARY;
+    public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
+    public static final UniqueKey<UserHasProjectRecord> KEY_USER_HAS_PROJECT_PRIMARY = UniqueKeys0.KEY_USER_HAS_PROJECT_PRIMARY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<UsersHasProjectsRecord, UsersRecord> FK_USERS_HAS_PROJECTS_USERS = ForeignKeys0.FK_USERS_HAS_PROJECTS_USERS;
-    public static final ForeignKey<UsersHasProjectsRecord, ProjectsRecord> FK_USERS_HAS_PROJECTS_PROJECTS1 = ForeignKeys0.FK_USERS_HAS_PROJECTS_PROJECTS1;
+    public static final ForeignKey<UserHasProjectRecord, UserRecord> FK_USERS_HAS_PROJECTS_USERS = ForeignKeys0.FK_USERS_HAS_PROJECTS_USERS;
+    public static final ForeignKey<UserHasProjectRecord, ProjectRecord> FK_USERS_HAS_PROJECTS_PROJECTS1 = ForeignKeys0.FK_USERS_HAS_PROJECTS_PROJECTS1;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
-        public static Identity<ProjectsRecord, Integer> IDENTITY_PROJECTS = createIdentity(Projects.PROJECTS, Projects.PROJECTS.ID);
-        public static Identity<UsersRecord, Integer> IDENTITY_USERS = createIdentity(Users.USERS, Users.USERS.ID);
+        public static Identity<ProjectRecord, Integer> IDENTITY_PROJECT = createIdentity(Project.PROJECT, Project.PROJECT.ID);
+        public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
-        public static final UniqueKey<ProjectsRecord> KEY_PROJECTS_PRIMARY = createUniqueKey(Projects.PROJECTS, "KEY_projects_PRIMARY", Projects.PROJECTS.ID);
-        public static final UniqueKey<UsersRecord> KEY_USERS_PRIMARY = createUniqueKey(Users.USERS, "KEY_users_PRIMARY", Users.USERS.ID);
-        public static final UniqueKey<UsersHasProjectsRecord> KEY_USERS_HAS_PROJECTS_PRIMARY = createUniqueKey(UsersHasProjects.USERS_HAS_PROJECTS, "KEY_users_has_projects_PRIMARY", UsersHasProjects.USERS_HAS_PROJECTS.USERS_ID, UsersHasProjects.USERS_HAS_PROJECTS.PROJECTS_ID);
+        public static final UniqueKey<ProjectRecord> KEY_PROJECT_PRIMARY = createUniqueKey(Project.PROJECT, "KEY_project_PRIMARY", Project.PROJECT.ID);
+        public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);
+        public static final UniqueKey<UserHasProjectRecord> KEY_USER_HAS_PROJECT_PRIMARY = createUniqueKey(UserHasProject.USER_HAS_PROJECT, "KEY_user_has_project_PRIMARY", UserHasProject.USER_HAS_PROJECT.USERS_ID, UserHasProject.USER_HAS_PROJECT.PROJECTS_ID);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
-        public static final ForeignKey<UsersHasProjectsRecord, UsersRecord> FK_USERS_HAS_PROJECTS_USERS = createForeignKey(com.app.camel.model.Keys.KEY_USERS_PRIMARY, UsersHasProjects.USERS_HAS_PROJECTS, "fk_Users_has_Projects_Users", UsersHasProjects.USERS_HAS_PROJECTS.USERS_ID);
-        public static final ForeignKey<UsersHasProjectsRecord, ProjectsRecord> FK_USERS_HAS_PROJECTS_PROJECTS1 = createForeignKey(com.app.camel.model.Keys.KEY_PROJECTS_PRIMARY, UsersHasProjects.USERS_HAS_PROJECTS, "fk_Users_has_Projects_Projects1", UsersHasProjects.USERS_HAS_PROJECTS.PROJECTS_ID);
+        public static final ForeignKey<UserHasProjectRecord, UserRecord> FK_USERS_HAS_PROJECTS_USERS = createForeignKey(com.app.camel.model.Keys.KEY_USER_PRIMARY, UserHasProject.USER_HAS_PROJECT, "fk_Users_has_Projects_Users", UserHasProject.USER_HAS_PROJECT.USERS_ID);
+        public static final ForeignKey<UserHasProjectRecord, ProjectRecord> FK_USERS_HAS_PROJECTS_PROJECTS1 = createForeignKey(com.app.camel.model.Keys.KEY_PROJECT_PRIMARY, UserHasProject.USER_HAS_PROJECT, "fk_Users_has_Projects_Projects1", UserHasProject.USER_HAS_PROJECT.PROJECTS_ID);
     }
 }

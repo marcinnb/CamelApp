@@ -4,9 +4,9 @@
 package com.app.camel.model;
 
 
-import com.app.camel.model.tables.Projects;
-import com.app.camel.model.tables.Users;
-import com.app.camel.model.tables.UsersHasProjects;
+import com.app.camel.model.tables.Project;
+import com.app.camel.model.tables.User;
+import com.app.camel.model.tables.UserHasProject;
 
 import javax.annotation.Generated;
 
@@ -25,17 +25,17 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>library.projects</code>.
+     * The table <code>library.project</code>.
      */
-    public static final Projects PROJECTS = com.app.camel.model.tables.Projects.PROJECTS;
+    public static final Project PROJECT = com.app.camel.model.tables.Project.PROJECT;
 
     /**
-     * The table <code>library.users</code>.
+     * The table <code>library.user</code>.
      */
-    public static final Users USERS = com.app.camel.model.tables.Users.USERS;
+    public static final User USER = com.app.camel.model.tables.User.USER;
 
     /**
-     * The table <code>library.users_has_projects</code>.
+     * The table <code>library.user_has_project</code>.
      */
-    public static final UsersHasProjects USERS_HAS_PROJECTS = com.app.camel.model.tables.UsersHasProjects.USERS_HAS_PROJECTS;
+    public static final UserHasProject USER_HAS_PROJECT = com.app.camel.model.tables.UserHasProject.USER_HAS_PROJECT;
 }
