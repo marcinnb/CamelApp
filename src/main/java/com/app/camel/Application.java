@@ -7,10 +7,12 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         CamelContext context = new DefaultCamelContext();
-        RestfulRoute restfulRoute = new RestfulRoute();
+        UserRoute restfulRoute = new UserRoute();
+        ProjectRoute projectRoute= new ProjectRoute();
         context.addRoutes(restfulRoute);
+        context.addRoutes(projectRoute);
         context.start();
-        Thread.sleep(50000);
+        Thread.sleep(500000);
         context.stop();
     }
 }
