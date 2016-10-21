@@ -1,5 +1,8 @@
-package com.app.camel;
+package com.app.camel.DAO;
 
+import com.app.camel.Config;
+import com.app.camel.User;
+import com.app.camel.UserStatus;
 import com.app.camel.model.tables.records.UserRecord;
 import com.google.gson.Gson;
 import org.jooq.DSLContext;

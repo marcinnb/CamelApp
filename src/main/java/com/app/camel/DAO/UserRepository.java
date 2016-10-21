@@ -1,4 +1,6 @@
-package com.app.camel;
+package com.app.camel.DAO;
+
+import com.app.camel.UserStatus;
 
 public interface UserRepository {
 
